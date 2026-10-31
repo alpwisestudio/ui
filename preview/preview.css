@@ -1,0 +1,5 @@
+@import "tailwindcss";
+@import "../styles/index.css" layer(components);
+@import "../styles/theme.css";
+
+.pv-label{font:400 11px/16px var(--font-mono);letter-spacing:.04em;text-transform:uppercase;color:var(--text-subtle)}

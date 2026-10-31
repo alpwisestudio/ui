@@ -1,0 +1,98 @@
+/* Alpwise UI — tema per Tailwind v4. Stesse utility del preset v3 (bg-bg, text-ink-muted, bg-primary text-primary-fg…),
+   tutte riferite alle variabili di tokens.css. "reference" non emette variabili: i valori restano solo in tokens.css,
+   quindi gli override dei token valgono anche per le utility. Importa dopo "tailwindcss". */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline reference {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-line: var(--line);
+  --color-line-grid: var(--line-grid);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--text);
+  --color-ink-muted: var(--text-muted);
+  --color-ink-subtle: var(--text-subtle);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-fg: var(--on-primary);
+  --color-inverse: var(--inverse);
+  --color-inverse-fg: var(--on-inverse);
+  --color-sky-100: var(--sky-100);
+  --color-sky-200: var(--sky-200);
+  --color-sky-400: var(--sky-400);
+  --color-sky-500: var(--sky-500);
+  --color-sky-600: var(--sky-600);
+  --color-sky-700: var(--sky-700);
+  --color-sky-800: var(--sky-800);
+  --color-mist: var(--mist);
+  --color-link: var(--link);
+  --color-focus: var(--focus);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --text-display-xl: 104px;
+  --text-display-xl--line-height: 100px;
+  --text-display-xl--letter-spacing: -0.045em;
+  --text-display-xl--font-weight: 400;
+  --text-display-lg: 72px;
+  --text-display-lg--line-height: 72px;
+  --text-display-lg--letter-spacing: -0.04em;
+  --text-display-lg--font-weight: 400;
+  --text-h1: 52px;
+  --text-h1--line-height: 56px;
+  --text-h1--letter-spacing: -0.035em;
+  --text-h1--font-weight: 400;
+  --text-h2: 36px;
+  --text-h2--line-height: 40px;
+  --text-h2--letter-spacing: -0.025em;
+  --text-h2--font-weight: 400;
+  --text-h3: 24px;
+  --text-h3--line-height: 30px;
+  --text-h3--letter-spacing: -0.015em;
+  --text-h3--font-weight: 400;
+  --text-h4: 18px;
+  --text-h4--line-height: 24px;
+  --text-h4--letter-spacing: -0.01em;
+  --text-h4--font-weight: 500;
+  --text-lead: 20px;
+  --text-lead--line-height: 30px;
+  --text-lead--font-weight: 300;
+  --text-body: 16px;
+  --text-body--line-height: 26px;
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 22px;
+  --text-label: 14px;
+  --text-label--line-height: 20px;
+  --text-label--font-weight: 500;
+  --text-mono-label: 11px;
+  --text-mono-label--line-height: 16px;
+  --text-mono-label--letter-spacing: 0.04em;
+  --text-mono-sm: 12px;
+  --text-mono-sm--line-height: 18px;
+  --text-mono-data: 14px;
+  --text-mono-data--line-height: 20px;
+
+  --radius-none: var(--radius-none);
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --container-container: var(--container-max);
+  --shadow-overlay: var(--shadow-overlay);
+  --ease-out: var(--ease-out);
+  --ease-in-out: var(--ease-in-out);
+}
+
+@utility bg-horizon { background-image: var(--horizon); }
+@utility z-nav { z-index: var(--z-nav); }
+@utility z-modal { z-index: var(--z-modal); }
+@utility z-toast { z-index: var(--z-toast); }
+@utility duration-fast { transition-duration: var(--motion-fast); }
+@utility duration-base { transition-duration: var(--motion-base); }
+@utility duration-slow { transition-duration: var(--motion-slow); }
+@utility duration-epic { transition-duration: var(--motion-epic); }
