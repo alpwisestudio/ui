@@ -1,7 +1,11 @@
 // Alpwise UI — preset Tailwind v3. Stessa mappa di alpwise-portfolio/tailwind.config.ts:
 // ogni valore punta alle variabili CSS di tokens.css, mai a valori duplicati.
+// Tuple esplicite: senza, TypeScript inferisce array e il preset non soddisfa `Config` di tailwindcss.
+type FontSize = [size: string, config: { lineHeight: string; letterSpacing?: string; fontWeight?: string }];
+const darkMode: ['selector', string] = ['selector', '[data-theme="dark"]'];
+
 const preset = {
-  darkMode: ['selector', '[data-theme="dark"]'],
+  darkMode,
   theme: {
     extend: {
       colors: {
@@ -23,7 +27,7 @@ const preset = {
         sans: ['var(--font-sans)'],
         mono: ['var(--font-mono)'],
       },
-      fontSize: {
+      fontSize: <Record<string, FontSize>>{
         'display-xl': ['104px', { lineHeight: '100px', letterSpacing: '-0.045em', fontWeight: '400' }],
         'display-lg': ['72px', { lineHeight: '72px', letterSpacing: '-0.04em', fontWeight: '400' }],
         h1: ['52px', { lineHeight: '56px', letterSpacing: '-0.035em', fontWeight: '400' }],
