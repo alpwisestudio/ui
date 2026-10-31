@@ -15,7 +15,7 @@ export default defineConfig([
   {
     entry: { 'tailwind/preset': 'src/tailwind/preset.ts' },
     format: ['esm', 'cjs'],
-    // require('@alpwise/ui/tailwind-preset') restituisce il preset, non { default }.
+    // require('@alpwisestudio/ui/tailwind-preset') restituisce il preset, non { default }.
     cjsInterop: true,
     splitting: true,
     dts: true,

@@ -175,7 +175,7 @@ function Gallery({ theme }: { theme: 'dark' | 'light' }) {
       <CTA title="Iniziamo" text="Raccontaci il progetto in due righe." action={{ href: '#', label: 'Scrivici' }} secondary={{ href: '#', label: 'Prenota una call' }} />
       <Footer tagline="Siti, software su misura e automazioni per PMI."
         columns={[{ title: 'Servizi/', links: ['Siti vetrina', 'Software', 'AI'] }, { title: 'Studio/', links: [{ label: 'Contatti', href: '#' }] }]}
-        legal="© 2026 Alpwise Studio" note="Anteprima @alpwise/ui" />
+        legal="© 2026 Alpwise Studio" note="Anteprima @alpwisestudio/ui" />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-# @alpwise/ui
+# @alpwisestudio/ui
 
 Design system di Alpwise Studio come pacchetto privato su GitHub Packages: token CSS (tema Scuro e Chiaro), componenti React, preset per Tailwind v3 e tema per Tailwind v4.
 
@@ -8,26 +8,26 @@ Componenti e stili vengono da `alpwise-portfolio` (`src/components/alpwise`, `sr
 
 | Import | Cosa contiene |
 |---|---|
-| `@alpwise/ui` | Componenti React: `Button`, `Tag`, `Chip`, `Hl`, `Icon`, `Logo`, `Mono`, `Sq`, `Input`, `Field`, `Checkbox`, `Card`, `Stats`, `Tree`, `Table`, `Accordion`, `Navbar`, `Footer`, `Modal`, `Toast`, `ToastRegion`, `Head`, `Hero`, `Services`, `CaseStudy`, `Testimonial`, `CTA`, `Contact`, `cx` |
-| `@alpwise/ui/styles.css` | Tutto: font, token, componenti, movimento |
-| `@alpwise/ui/tokens.css` | Solo le variabili CSS dei due temi |
-| `@alpwise/ui/fonts.css` | `@font-face` di Host Grotesk (300–600) e DM Mono (400–500), file inclusi |
-| `@alpwise/ui/components.css` | Classi `al-*` dei componenti |
-| `@alpwise/ui/motion.css` | Keyframe e classi di animazione (`.is-armed`, `.is-play`, `data-m="…"`) |
-| `@alpwise/ui/tailwind-preset` | Preset Tailwind v3 |
-| `@alpwise/ui/theme.css` | Tema Tailwind v4 |
+| `@alpwisestudio/ui` | Componenti React: `Button`, `Tag`, `Chip`, `Hl`, `Icon`, `Logo`, `Mono`, `Sq`, `Input`, `Field`, `Checkbox`, `Card`, `Stats`, `Tree`, `Table`, `Accordion`, `Navbar`, `Footer`, `Modal`, `Toast`, `ToastRegion`, `Head`, `Hero`, `Services`, `CaseStudy`, `Testimonial`, `CTA`, `Contact`, `cx` |
+| `@alpwisestudio/ui/styles.css` | Tutto: font, token, componenti, movimento |
+| `@alpwisestudio/ui/tokens.css` | Solo le variabili CSS dei due temi |
+| `@alpwisestudio/ui/fonts.css` | `@font-face` di Host Grotesk (300–600) e DM Mono (400–500), file inclusi |
+| `@alpwisestudio/ui/components.css` | Classi `al-*` dei componenti |
+| `@alpwisestudio/ui/motion.css` | Keyframe e classi di animazione (`.is-armed`, `.is-play`, `data-m="…"`) |
+| `@alpwisestudio/ui/tailwind-preset` | Preset Tailwind v3 |
+| `@alpwisestudio/ui/theme.css` | Tema Tailwind v4 |
 
 React (≥ 18) è una peer dependency. I componenti con stato o hook (`form`, `layout`, `feedback`, `sections`) hanno `'use client'`; gli altri (`Button`, `Card`, `Table`…) restano utilizzabili nei Server Components di Next.js App Router.
 
 ## Installazione
 
-Il pacchetto è su GitHub Packages, quindi npm deve sapere dove trovare lo scope `@alpwise` e avere un token.
+Il pacchetto è su GitHub Packages, quindi npm deve sapere dove trovare lo scope `@alpwisestudio` e avere un token.
 
-1. Crea un token GitHub con permesso **`read:packages`** (classic token, oppure fine-grained con accesso in lettura ai package dell'organizzazione).
+1. Crea un token GitHub con permesso **`read:packages`** (classic token, oppure fine-grained con accesso in lettura ai package dell'account `alpwisestudio`).
 2. Nel progetto che usa il pacchetto, aggiungi `.npmrc`:
 
    ```ini
-   @alpwise:registry=https://npm.pkg.github.com
+   @alpwisestudio:registry=https://npm.pkg.github.com
    //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
    ```
 
@@ -36,16 +36,16 @@ Il pacchetto è su GitHub Packages, quindi npm deve sapere dove trovare lo scope
 3. Installa:
 
    ```bash
-   npm install @alpwise/ui
+   npm install @alpwisestudio/ui
    ```
 
 ## Uso
 
 ```tsx
 // app/layout.tsx (Next.js) o main.tsx (Vite)
-import '@alpwise/ui/styles.css';
+import '@alpwisestudio/ui/styles.css';
 
-import { Button, Hero, Navbar } from '@alpwise/ui';
+import { Button, Hero, Navbar } from '@alpwisestudio/ui';
 
 export default function Page() {
   return <Button arrow href="/contatti">Parliamone</Button>;
@@ -57,7 +57,7 @@ export default function Page() {
 ```ts
 // tailwind.config.ts
 import type { Config } from 'tailwindcss';
-import alpwise from '@alpwise/ui/tailwind-preset';
+import alpwise from '@alpwisestudio/ui/tailwind-preset';
 
 export default {
   presets: [alpwise],
@@ -65,17 +65,17 @@ export default {
 } satisfies Config;
 ```
 
-Con una config CommonJS: `presets: [require('@alpwise/ui/tailwind-preset')]`.
+Con una config CommonJS: `presets: [require('@alpwisestudio/ui/tailwind-preset')]`.
 
-Ordine dei CSS, come nel portfolio: prima `@alpwise/ui/styles.css`, poi il file con `@tailwind base; @tailwind components; @tailwind utilities;`. Non serve aggiungere il pacchetto a `content`: i componenti usano le classi `al-*`, non utility Tailwind.
+Ordine dei CSS, come nel portfolio: prima `@alpwisestudio/ui/styles.css`, poi il file con `@tailwind base; @tailwind components; @tailwind utilities;`. Non serve aggiungere il pacchetto a `content`: i componenti usano le classi `al-*`, non utility Tailwind.
 
 ## Tailwind v4
 
 ```css
 /* app/globals.css */
 @import "tailwindcss";
-@import "@alpwise/ui/styles.css" layer(components);
-@import "@alpwise/ui/theme.css";
+@import "@alpwisestudio/ui/styles.css" layer(components);
+@import "@alpwisestudio/ui/theme.css";
 ```
 
 `layer(components)` mette le classi `al-*` sopra il Preflight e sotto le utility: `className="al-btn w-full"` funziona come ci si aspetta. `theme.css` definisce anche la variante `dark:` su `data-theme="dark"`.
@@ -155,7 +155,7 @@ npm run typecheck
 
 L'anteprima (`preview/`) importa i sorgenti direttamente e usa Tailwind v4 con `theme.css`.
 
-Gli stili in `styles/` sono quelli del portfolio. Se cambi un token o una classe `al-*`, cambiali qui e nel portfolio (o fai usare `@alpwise/ui` al portfolio), così le due cose non divergono.
+Gli stili in `styles/` sono quelli del portfolio. Se cambi un token o una classe `al-*`, cambiali qui e nel portfolio (o fai usare `@alpwisestudio/ui` al portfolio), così le due cose non divergono.
 
 ## Rilasci
 
@@ -165,4 +165,4 @@ Le versioni sono gestite con [Changesets](https://github.com/changesets/changese
 2. Al push su `main`, la GitHub Action `Release` apre (o aggiorna) la PR **"chore: version packages"** con versione e CHANGELOG aggiornati.
 3. Quando unisci quella PR, la stessa Action builda e pubblica su GitHub Packages.
 
-Serve una volta sola, nelle impostazioni del repository: **Settings → Actions → General → Workflow permissions** su "Read and write" e "Allow GitHub Actions to create and approve pull requests". Il token della Action (`GITHUB_TOKEN`) basta per pubblicare: lo scope `@alpwise` deve coincidere con l'owner del repository su GitHub (l'organizzazione `alpwise`).
+Serve una volta sola, nelle impostazioni del repository: **Settings → Actions → General → Workflow permissions** su "Read and write" e "Allow GitHub Actions to create and approve pull requests". Il token della Action (`GITHUB_TOKEN`) basta per pubblicare: lo scope `@alpwisestudio` deve coincidere con l'owner del repository su GitHub (l'account `alpwisestudio`).
