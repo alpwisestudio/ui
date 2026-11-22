@@ -1,0 +1,16 @@
+Copyright (c) 2026 Alpwise Studio. Tutti i diritti riservati.
+
+Questo pacchetto (codice, token CSS, componenti, preset e documentazione) è
+pubblicato su npm solo per essere installato nei progetti di Alpwise Studio e
+nei siti che Alpwise Studio realizza per i propri clienti. Non è concesso
+copiarlo, modificarlo, ridistribuirlo o usarlo in altri progetti senza
+l'autorizzazione scritta di Alpwise Studio.
+
+All rights reserved. This package is published on npm only for use in Alpwise
+Studio projects and in websites built by Alpwise Studio for its clients. No
+permission is granted to copy, modify, redistribute or use it elsewhere without
+prior written permission from Alpwise Studio.
+
+I font nella cartella fonts/ (Host Grotesk, DM Mono) non sono coperti da questa
+licenza: sono distribuiti con la SIL Open Font License 1.1, i cui testi sono in
+fonts/OFL-host-grotesk.txt e fonts/OFL-dm-mono.txt.
