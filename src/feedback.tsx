@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useRef, type ReactNode } from 'react';
-import { cx, Icon, Mono, Sq } from './primitives.js';
+import { cx, Icon, Kicker, Sq } from './primitives.js';
 
-export function Modal({ open, kicker = 'Conferma/', title, onClose, actions, children }: {
+export function Modal({ open, kicker = 'Conferma', title, onClose, actions, children }: {
   open: boolean; kicker?: string; title: ReactNode; onClose?: () => void; actions?: ReactNode; children?: ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -20,7 +20,7 @@ export function Modal({ open, kicker = 'Conferma/', title, onClose, actions, chi
     <div className="al-scrim" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose?.(); }}>
       <div ref={ref} className="al-modal" role="dialog" aria-modal="true" aria-labelledby="al-modal-t">
         <div className="al-modal-head">
-          <Mono>{kicker}</Mono>
+          <Kicker>{kicker}</Kicker>
           {onClose && <button className="al-icon-btn" aria-label="Chiudi" onClick={onClose}><Icon name="x" /></button>}
         </div>
         <div className="al-modal-body"><h2 id="al-modal-t">{title}</h2>{children}</div>

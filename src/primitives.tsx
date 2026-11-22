@@ -3,10 +3,13 @@ import { WORDMARK_GLYPHS, WORDMARK_VIEWBOX } from './wordmark-paths.js';
 
 export const cx = (...c: Array<string | false | null | undefined>) => c.filter(Boolean).join(' ');
 
-/* ---------- Mono label & square marker ---------- */
-export function Mono({ children, className, style }: { children?: ReactNode; className?: string; style?: CSSProperties }) {
-  return <span className={cx('al-mono', className)} style={style}>{children}</span>;
+/* ---------- Kicker (etichetta) & square marker ---------- */
+/** Etichetta sopra un titolo o un gruppo: Host Grotesk 500, frase normale ("Come lavoriamo"), senza barra finale. */
+export function Kicker({ children, className, style }: { children?: ReactNode; className?: string; style?: CSSProperties }) {
+  return <span className={cx('al-kicker', className)} style={style}>{children}</span>;
 }
+/** @deprecated Usa `Kicker`: DM Mono non c'è più e l'etichetta è in Host Grotesk. Resta per compatibilità, stesso stile. */
+export const Mono = Kicker;
 export function Sq({ children = '+', on }: { children?: ReactNode; on?: boolean }) {
   return <span className={cx('al-sq', on && 'al-sq-on')} aria-hidden="true">{children}</span>;
 }
@@ -61,7 +64,8 @@ export function Logo({ size = 24, color, className, lockup = 'full' }: { size?: 
 }
 
 /* ---------- Button ---------- */
-export type ButtonVariant = 'primary' | 'inverse' | 'outline' | 'ghost' | 'danger' | 'light' | 'dark';
+/** `glass`: secondario sopra una foto o un pannello in vetro (testo bianco, fondo semitrasparente). */
+export type ButtonVariant = 'primary' | 'inverse' | 'outline' | 'ghost' | 'danger' | 'light' | 'dark' | 'glass';
 type BtnBase = { variant?: ButtonVariant; size?: 'sm' | 'md' | 'lg'; arrow?: boolean; loading?: boolean; className?: string; children?: ReactNode };
 export type ButtonProps = BtnBase & (
   | ({ href: string } & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>)
@@ -88,4 +92,29 @@ export function Chip({ icon = 'spark' }: { icon?: IconName }) {
 /** Highlighted word inside a heading or lead. */
 export function Hl({ children }: { children: ReactNode }) {
   return <span className="al-hl">{children}</span>;
+}
+
+/* ---------- Photo & Glass ---------- */
+export type PhotoImage = { src: string; alt?: string; width?: number; height?: number };
+type PhotoTone = 'top' | 'soft' | 'mid';
+/**
+ * Sezione con una foto a tutta larghezza: velo dal Notte al blu notte e 12 colonne hairline sopra, contenuto bianco.
+ * `tone`: `top` per le aperture (più scura in alto, sotto la navbar), `soft` per pannelli, `mid` per sezioni interne.
+ * Passa `image` per un <img> semplice, oppure metti tu come primo figlio un'immagine con classe `al-photo-img` (es. next/image).
+ */
+export function Photo({ as: Tag = 'section', image, tone = 'top', grid = true, className, style, children, ...rest }: {
+  as?: 'section' | 'div' | 'header' | 'article'; image?: PhotoImage; tone?: PhotoTone; grid?: boolean; className?: string; style?: CSSProperties; children?: ReactNode;
+  id?: string; 'aria-label'?: string; 'aria-labelledby'?: string;
+}) {
+  return (
+    <Tag {...rest} className={cx('al-photo', tone !== 'top' && `al-photo-${tone}`, !grid && 'al-photo-nogrid', className)} style={style}>
+      {image && <img className="al-photo-img" src={image.src} alt={image.alt ?? ''} width={image.width} height={image.height} loading="lazy" decoding="async" />}
+      {children}
+    </Tag>
+  );
+}
+
+/** Pannello in vetro sopra una foto. Dentro, campi e testi del pacchetto diventano chiari: mai campi neri sul vetro. */
+export function Glass({ as: Tag = 'div', className, style, children }: { as?: 'div' | 'form' | 'aside' | 'section'; className?: string; style?: CSSProperties; children?: ReactNode }) {
+  return <Tag className={cx('al-glass', className)} style={style}>{children}</Tag>;
 }

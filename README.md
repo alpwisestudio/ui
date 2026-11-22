@@ -8,10 +8,10 @@ Componenti e stili vengono da `alpwise-portfolio` (`src/components/alpwise`, `sr
 
 | Import | Cosa contiene |
 |---|---|
-| `@alpwisestudio/ui` | Componenti React: `Button`, `Tag`, `Chip`, `Hl`, `Icon`, `Logo`, `Mono`, `Sq`, `Input`, `Field`, `Checkbox`, `Card`, `Stats`, `Tree`, `Table`, `Accordion`, `Navbar`, `Footer`, `Modal`, `Toast`, `ToastRegion`, `Head`, `Hero`, `Services`, `CaseStudy`, `Testimonial`, `CTA`, `Contact`, `cx` |
+| `@alpwisestudio/ui` | Componenti React: `Button`, `Tag`, `Chip`, `Hl`, `Icon`, `Logo`, `Kicker`, `Photo`, `Glass`, `Sq`, `Input`, `Field`, `Checkbox`, `Card`, `Stats`, `Tree`, `Table`, `Accordion`, `Navbar`, `Footer`, `Modal`, `Toast`, `ToastRegion`, `Head`, `Hero`, `Services`, `CaseStudy`, `Testimonial`, `CTA`, `Contact`, `cx` |
 | `@alpwisestudio/ui/styles.css` | Tutto: font, token, componenti, movimento |
 | `@alpwisestudio/ui/tokens.css` | Solo le variabili CSS dei due temi |
-| `@alpwisestudio/ui/fonts.css` | `@font-face` di Host Grotesk (300–600) e DM Mono (400–500), file inclusi |
+| `@alpwisestudio/ui/fonts.css` | `@font-face` di Host Grotesk (300–600), l'unico font, file inclusi |
 | `@alpwisestudio/ui/components.css` | Classi `al-*` dei componenti |
 | `@alpwisestudio/ui/motion.css` | Keyframe e classi di animazione (`.is-armed`, `.is-play`, `data-m="…"`) |
 | `@alpwisestudio/ui/tailwind-preset` | Preset Tailwind v3 |
@@ -72,9 +72,33 @@ Ordine dei CSS, come nel portfolio: prima `@alpwisestudio/ui/styles.css`, poi il
 
 Preset v3 e `theme.css` v4 generano le stesse classi, tutte riferite alle variabili dei token:
 
-- Colori: `bg-bg`, `bg-surface`, `bg-surface-raised`, `bg-surface-sunken`, `border-line`, `border-line-grid`, `border-line-strong`, `text-ink`, `text-ink-muted`, `text-ink-subtle`, `bg-primary`, `hover:bg-primary-hover`, `bg-primary-soft`, `text-primary-fg`, `bg-inverse`, `text-inverse-fg`, `text-link`, `outline-focus`, `text-success`, `text-warning`, `text-danger`, `bg-mist`, `sky-100…800`
-- Testo: `font-sans`, `font-mono`, `text-display-xl`, `text-display-lg`, `text-h1`…`text-h4`, `text-lead`, `text-body`, `text-body-sm`, `text-label`, `text-mono-label`, `text-mono-sm`, `text-mono-data`
-- Altro: `rounded-none`, `rounded-xs`, `rounded-sm`, `max-w-container`, `shadow-overlay`, `bg-horizon`, `z-nav`, `z-modal`, `z-toast`, `duration-fast|base|slow|epic`, `ease-out`, `ease-in-out`
+- Colori: `bg-night`, `bg-glass`, `border-glass-line`, `bg-bg`, `bg-surface`, `bg-surface-raised`, `bg-surface-sunken`, `border-line`, `border-line-grid`, `border-line-strong`, `text-ink`, `text-ink-muted`, `text-ink-subtle`, `bg-primary`, `hover:bg-primary-hover`, `bg-primary-soft`, `text-primary-fg`, `bg-inverse`, `text-inverse-fg`, `text-link`, `outline-focus`, `text-success`, `text-warning`, `text-danger`, `bg-mist`, `sky-100…800`
+- Testo: `font-sans`, `font-mono`, `text-display-xl`, `text-display-lg`, `text-h1`…`text-h4`, `text-lead`, `text-body`, `text-body-sm`, `text-label`, `text-kicker`, `text-mono-label`, `text-mono-sm`, `text-mono-data` (i `mono-*` sono in Host Grotesk: aggiungi `tabular-nums` ai numeri)
+- Altro: `rounded-none`, `rounded-xs`, `rounded-sm`, `max-w-container`, `shadow-overlay`, `bg-horizon`, `bg-photo-scrim`, `backdrop-blur-glass`, `z-nav`, `z-modal`, `z-toast`, `duration-fast|base|slow|epic`, `ease-out`, `ease-in-out`
+
+## Foto e vetro
+
+Un solo font (Host Grotesk), fondo Notte (`--night`), foto a tutta larghezza con il vetro sopra.
+
+```tsx
+import { Button, Field, Glass, Hero, Input, Kicker, Photo } from '@alpwisestudio/ui';
+
+<Hero image={{ src: '/photos/lago.jpg' }} kicker="Consulenza digitale per PMI" title="…"
+  primary={{ href: '/contatti', label: 'Prenota 30 minuti' }} secondary={{ href: '#metodo', label: 'Come lavoriamo' }} />
+
+<Photo image={{ src: '/photos/sentiero.jpg' }} tone="soft">
+  <Glass as="form" className="al-form">
+    <Kicker>Oppure lascia due righe</Kicker>
+    <Field label="Nome"><Input name="name" /></Field>
+    <Button variant="glass">Secondaria</Button>
+  </Glass>
+</Photo>
+```
+
+- `Photo` è sempre scura (velo dal Notte al blu notte, 12 colonne hairline), uguale nei due temi, testo bianco. `tone`: `top` (aperture), `soft` (pannelli), `mid` (sezioni interne). Con next/image metti come primo figlio un'immagine con classe `al-photo-img`.
+- `Glass` ridefinisce i token al suo interno: campi, etichette, errori e checkbox diventano chiari e semitrasparenti. Mai campi neri sul vetro.
+- `Button variant="glass"` è il secondario sopra le foto; sopra fondi normali usa `outline`.
+- Etichette (`Kicker`) in Host Grotesk 500, frase normale, senza barra finale. Numeri, orari e date con `tabular-nums` (`.al-data`, `.al-num-tab`).
 
 ## Temi
 
@@ -161,4 +185,4 @@ Serve una volta sola:
 
 ## Licenza
 
-Codice, token e componenti sono proprietari di Alpwise Studio (vedi `LICENSE`): il pacchetto è pubblico su npm per comodità di installazione, non per il riuso. I font in `fonts/` (Host Grotesk, DM Mono) sono sotto SIL Open Font License 1.1, con i testi in `fonts/OFL-*.txt`.
+Codice, token e componenti sono proprietari di Alpwise Studio (vedi `LICENSE`): il pacchetto è pubblico su npm per comodità di installazione, non per il riuso. Il font in `fonts/` (Host Grotesk) è sotto SIL Open Font License 1.1, con i testi in `fonts/OFL-*.txt`.

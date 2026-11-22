@@ -1,4 +1,4 @@
-/* Alpwise UI — token del design system (stessi valori di alpwise-portfolio/src/styles/tokens.css).
+/* Alpwise UI — token del design system.
    Sono in @layer alpwise-tokens: qualunque regola fuori da un layer li sovrascrive, a prescindere dall'ordine di import.
    Scuro è il default (:root); Chiaro con data-theme="light" su <html> o su un contenitore. */
 @layer alpwise-tokens {
@@ -6,6 +6,8 @@
   :root, [data-theme="dark"] {
     color-scheme: dark;
     --black: #000000;
+    /* Notte: il nero di Alpwise, con una punta di blu notte. Fondo del tema Scuro, delle foto e del footer. */
+    --night: #06080B;
     --ink-900: #0A0C10;
     --ink-800: #12151B;
     --ink-700: #1D2129;
@@ -26,7 +28,7 @@
     --sky-200: #C6E0FF;
     --sky-100: #E6F1FF;
     --deep-900: #04142E;
-    --bg: var(--black);
+    --bg: var(--night);
     --surface: var(--ink-900);
     --surface-raised: var(--ink-800);
     --surface-sunken: #050608;
@@ -48,8 +50,8 @@
     --success: #4ADE9B;
     --warning: #F5B94E;
     --danger: #FF7A85;
-    --scrim: rgba(0,0,0,0.72);
-    --shadow-overlay: 0 0 0 1px rgba(255,255,255,0.06), 0 24px 48px rgba(0,0,0,0.6);
+    --scrim: rgba(6,8,11,0.72);
+    --shadow-overlay: 0 0 0 1px rgba(255,255,255,0.06), 0 24px 48px rgba(6,8,11,0.6);
   }
 
   /* Chiaro */
@@ -96,7 +98,22 @@
     --radius-xs: 2px;
     --radius-sm: 4px;
     /* Orizzonte notte: dal nero al blu notte all'azzurro di marca, senza fascia bianca. Testo bianco ≥ 5.8:1 in ogni punto. */
-    --horizon: linear-gradient(180deg, #000000 0%, #04142E 40%, #0A4CB0 78%, #0B5ED7 100%);
+    --horizon: linear-gradient(180deg, #06080B 0%, #04142E 40%, #0A4CB0 78%, #0B5ED7 100%);
+    /* Foto a tutta larghezza: velo dal Notte al blu notte, testo bianco leggibile sopra (vedi .al-photo).
+       photo-scrim per le aperture (più scuro in alto, dove c'è la navbar), photo-scrim-soft per pannelli e sezioni interne. */
+    --photo-scrim: linear-gradient(180deg, rgba(6,8,11,.72) 0%, rgba(6,8,11,.3) 38%, rgba(4,20,46,.7) 78%, #06080B 100%);
+    --photo-scrim-soft: linear-gradient(180deg, rgba(6,8,11,.35) 0%, rgba(4,20,46,.55) 100%);
+    --photo-grid: rgba(255,255,255,.12);
+    /* Vetro: pannelli, bottoni secondari e campi sopra una foto. Sempre su fondo scuro, testo bianco. */
+    --glass: rgba(255,255,255,.06);
+    --glass-soft: rgba(255,255,255,.04);
+    --glass-field: rgba(255,255,255,.08);
+    --glass-line: rgba(255,255,255,.18);
+    --glass-line-btn: rgba(255,255,255,.22);
+    --glass-line-field: rgba(255,255,255,.3);
+    --glass-edge: inset 0 1px 0 rgba(255,255,255,.12);
+    --glass-blur: blur(18px) saturate(130%);
+    --glass-blur-sm: blur(10px) saturate(130%);
     --motion-fast: 120ms;
     --motion-base: 560ms;
     --motion-slow: 900ms;
@@ -113,6 +130,8 @@
     --z-modal: 50;
     --z-toast: 60;
     --font-sans: "Host Grotesk", ui-sans-serif, system-ui, sans-serif;
-    --font-mono: "DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    /* Un solo font: Host Grotesk. Numeri, orari e date con cifre tabellari (font-variant-numeric: tabular-nums).
+       --font-mono resta come alias di --font-sans per chi lo usa ancora: DM Mono non c'è più. */
+    --font-mono: var(--font-sans);
   }
 }

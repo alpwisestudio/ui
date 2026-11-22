@@ -28,6 +28,11 @@
   --color-sky-700: var(--sky-700);
   --color-sky-800: var(--sky-800);
   --color-mist: var(--mist);
+  --color-night: var(--night);
+  --color-glass: var(--glass);
+  --color-glass-soft: var(--glass-soft);
+  --color-glass-field: var(--glass-field);
+  --color-glass-line: var(--glass-line);
   --color-link: var(--link);
   --color-focus: var(--focus);
   --color-success: var(--success);
@@ -71,10 +76,13 @@
   --text-label: 14px;
   --text-label--line-height: 20px;
   --text-label--font-weight: 500;
-  --text-mono-label: 11px;
-  --text-mono-label--line-height: 16px;
-  --text-mono-label--letter-spacing: 0.04em;
-  --text-mono-sm: 12px;
+  --text-kicker: 15px;
+  --text-kicker--line-height: 21px;
+  --text-kicker--font-weight: 500;
+  --text-mono-label: 13px;
+  --text-mono-label--line-height: 18px;
+  --text-mono-label--font-weight: 500;
+  --text-mono-sm: 13px;
   --text-mono-sm--line-height: 18px;
   --text-mono-data: 14px;
   --text-mono-data--line-height: 20px;
@@ -89,6 +97,9 @@
 }
 
 @utility bg-horizon { background-image: var(--horizon); }
+@utility bg-photo-scrim { background-image: var(--photo-scrim); }
+@utility bg-photo-scrim-soft { background-image: var(--photo-scrim-soft); }
+@utility backdrop-blur-glass { backdrop-filter: var(--glass-blur); }
 @utility z-nav { z-index: var(--z-nav); }
 @utility z-modal { z-index: var(--z-modal); }
 @utility z-toast { z-index: var(--z-toast); }
