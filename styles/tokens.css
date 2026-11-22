@@ -95,7 +95,8 @@
     --radius-none: 0px;
     --radius-xs: 2px;
     --radius-sm: 4px;
-    --horizon: linear-gradient(180deg, #000000 0%, #04142E 34%, #0B4FC4 62%, #4DA2FF 80%, #C6E0FF 94%, #FFFFFF 100%);
+    /* Orizzonte notte: dal nero al blu notte all'azzurro di marca, senza fascia bianca. Testo bianco ≥ 5.8:1 in ogni punto. */
+    --horizon: linear-gradient(180deg, #000000 0%, #04142E 40%, #0A4CB0 78%, #0B5ED7 100%);
     --motion-fast: 120ms;
     --motion-base: 560ms;
     --motion-slow: 900ms;
