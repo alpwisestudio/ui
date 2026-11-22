@@ -153,10 +153,11 @@ Le versioni sono gestite con [Changesets](https://github.com/changesets/changese
 2. Al push su `main`, la GitHub Action `Release` apre (o aggiorna) la PR **"chore: version packages"** con versione e CHANGELOG aggiornati.
 3. Quando unisci quella PR, la stessa Action builda e pubblica su npmjs.com.
 
-Serve una volta sola, nelle impostazioni del repository:
+Serve una volta sola:
 
 - **Settings → Actions → General → Workflow permissions** su "Read and write" e "Allow GitHub Actions to create and approve pull requests" (per la PR di versione).
-- **Settings → Secrets and variables → Actions**: secret `NPM_TOKEN` con un token npm di tipo Automation (o granular con permesso di pubblicare `@alpwisestudio/ui`) dell'organizzazione `alpwisestudio` su npmjs.com.
+- Su npmjs.com, nel pacchetto `@alpwisestudio/ui` → **Settings → Trusted publishing**: publisher GitHub Actions, organization `alpwisestudio`, repository `ui`, workflow `release.yml`, environment vuoto. La Action pubblica con l'OIDC di GitHub (`id-token: write`), senza token npm salvati, e il pacchetto riceve la provenance.
+- Dopo il primo rilascio riuscito, in **Settings → Publishing access** scegli "Require two-factor authentication and disallow tokens": restano possibili solo la Action e la pubblicazione a mano con 2FA.
 
 ## Licenza
 
