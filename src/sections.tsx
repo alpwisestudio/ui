@@ -19,7 +19,7 @@ export function Head({ label, icon, title, lead }: { label?: string; icon?: Icon
   );
 }
 
-/** Home opener: the horizon gradient with the 12-column grid. White text stays in the upper half. */
+/** Home opener: the horizon gradient with the 12-column grid. White text passes at any height (≥ 5.8:1). */
 export function Hero({ nav, title, lead, primary, secondary, meta, className }: {
   nav?: ReactNode; title: ReactNode; lead?: ReactNode; primary?: Link; secondary?: Link; meta?: string[]; className?: string;
 }) {
