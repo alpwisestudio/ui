@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { Button, cx, Icon, Logo, Sq } from './primitives.js';
+import { useState, type ReactNode } from 'react';
+import { Button, cx, Icon, Kicker, Logo, Sq } from './primitives.js';
 import { Tree, type TreeItem } from './data.js';
 
 export type NavItem = { label: string; href?: string; menu?: { title: string; items: TreeItem[] }[] };
@@ -32,7 +32,7 @@ export function Navbar({ items, cta, clear, openMenu, homeHref = '/', onMenu, me
         </ul>
       </nav>
       <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-        {cta && <Button href={cta.href} size="sm" className="al-nav-cta">{cta.label}</Button>}
+        {cta && <Button href={cta.href} size="sm" variant={clear ? 'glass' : 'primary'} className="al-nav-cta">{cta.label}</Button>}
         <button type="button" className="al-icon-btn al-nav-menu" aria-label={menuOpen ? 'Chiudi menu' : 'Apri menu'}
           aria-expanded={menuOpen ?? undefined} aria-controls={menuId} onClick={onMenu}><Icon name={menuOpen ? 'x' : 'menu'} /></button>
       </div>
@@ -41,16 +41,26 @@ export function Navbar({ items, cta, clear, openMenu, homeHref = '/', onMenu, me
   );
 }
 
-export function Footer({ tagline, columns, legal, note }: { tagline?: string; columns: { title: string; links: TreeItem[] }[]; legal?: string; note?: string }) {
+/**
+ * Footer sempre scuro: etichetta, frase grande e bottone; colonne di link; riga legale; wordmark quasi trasparente in fondo.
+ * `note` accetta anche link (Privacy, Cookie, Torna su).
+ */
+export function Footer({ kicker = 'Alpwise Studio', tagline, cta, columns, legal, note }: {
+  kicker?: string; tagline?: ReactNode; cta?: { href: string; label: string }; columns: { title: string; links: TreeItem[] }[]; legal?: ReactNode; note?: ReactNode;
+}) {
   return (
     <footer className="al-footer">
       <div className="al-footer-inner al-container">
         <div className="al-footer-grid">
-          <div><p style={{ margin: 0, maxWidth: '34ch', color: 'var(--white)', fontSize: 18, lineHeight: '26px', fontWeight: 300 }}>{tagline}</p></div>
+          <div>
+            {kicker && <Kicker className="al-footer-kicker">{kicker}</Kicker>}
+            {tagline && <p className="al-footer-tagline">{tagline}</p>}
+            {cta && <Button size="lg" href={cta.href}>{cta.label}</Button>}
+          </div>
           {columns.map((c) => <Tree key={c.title} title={c.title} items={c.links} />)}
         </div>
-        <span className="al-footer-word"><Logo size={100} /></span>
-        <div className="al-footer-bottom"><span className="al-mono">{legal}</span><span className="al-mono">{note}</span></div>
+        {(legal || note) && <div className="al-footer-bottom"><span>{legal}</span><span>{note}</span></div>}
+        <span className="al-footer-word" aria-hidden="true"><Logo size={100} /></span>
       </div>
     </footer>
   );

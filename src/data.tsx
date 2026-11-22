@@ -1,12 +1,12 @@
 import type { ReactNode } from 'react';
-import { cx, Icon, Mono, Sq, type IconName } from './primitives.js';
+import { cx, Icon, Kicker, Sq, type IconName } from './primitives.js';
 
 export function Card({ label, title, footer, href, aside, className, children }: {
   label?: string; title?: ReactNode; footer?: ReactNode; href?: string; aside?: ReactNode; className?: string; children?: ReactNode;
 }) {
   const body = (
     <>
-      {(label || href) && <div className="al-card-top"><Mono>{label}</Mono>{href ? <Sq>→</Sq> : aside}</div>}
+      {(label || href) && <div className="al-card-top"><Kicker>{label}</Kicker>{href ? <Sq>→</Sq> : aside}</div>}
       {title && <h3>{title}</h3>}
       {children && <p>{children}</p>}
       {footer && <div className="al-card-foot">{footer}</div>}
@@ -34,7 +34,7 @@ export type TreeItem = string | { label: string; href?: string };
 export function Tree({ title, items, className }: { title?: string; items: TreeItem[]; className?: string }) {
   return (
     <div className={className}>
-      {title && <div className="al-mono al-tree-title">{title}</div>}
+      {title && <div className="al-kicker al-tree-title">{title}</div>}
       <ul className="al-tree">
         {items.map((it) => { const l = typeof it === 'string' ? it : it.label; const h = typeof it === 'string' ? undefined : it.href; return <li key={l}>{h ? <a href={h}>{l}</a> : l}</li>; })}
       </ul>
@@ -61,15 +61,5 @@ export function Table<R extends Record<string, unknown>>({ columns, rows, captio
   );
 }
 
-export function Accordion({ items, openFirst }: { items: { q: string; a: ReactNode }[]; openFirst?: boolean }) {
-  return (
-    <div className="al-acc">
-      {items.map((it, i) => (
-        <details key={it.q} open={openFirst && i === 0}>
-          <summary>{it.q}<Sq>+</Sq></summary>
-          <div>{it.a}</div>
-        </details>
-      ))}
-    </div>
-  );
-}
+/** `size="lg"`: domande frequenti a tutta larghezza, numerate, con + e − scritti. */
+export { Accordion } from './accordion.js';
