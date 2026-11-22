@@ -1,6 +1,6 @@
 # @alpwisestudio/ui
 
-Design system di Alpwise Studio come pacchetto privato su GitHub Packages: token CSS (tema Scuro e Chiaro), componenti React, preset per Tailwind v3 e tema per Tailwind v4.
+Design system di Alpwise Studio, pubblicato su npm ([`@alpwisestudio/ui`](https://www.npmjs.com/package/@alpwisestudio/ui)): token CSS (tema Scuro e Chiaro), componenti React, preset per Tailwind v3 e tema per Tailwind v4.
 
 Componenti e stili vengono da `alpwise-portfolio` (`src/components/alpwise`, `src/styles`) e ne riproducono la resa: lo stesso markup dà gli stessi stili calcolati nei due temi.
 
@@ -21,23 +21,11 @@ React (≥ 18) è una peer dependency. I componenti con stato o hook (`form`, `l
 
 ## Installazione
 
-Il pacchetto è su GitHub Packages, quindi npm deve sapere dove trovare lo scope `@alpwisestudio` e avere un token.
+Il pacchetto è pubblico su npmjs.com: non servono token né `.npmrc`.
 
-1. Crea un token GitHub con permesso **`read:packages`** (classic token, oppure fine-grained con accesso in lettura ai package dell'account `alpwisestudio`).
-2. Nel progetto che usa il pacchetto, aggiungi `.npmrc`:
-
-   ```ini
-   @alpwisestudio:registry=https://npm.pkg.github.com
-   //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-   ```
-
-   Il token resta fuori dal repository: esportalo nella shell (`export GITHUB_TOKEN=ghp_…`) o mettilo nel `~/.npmrc` personale. Su CI e su Vercel/Netlify imposta `GITHUB_TOKEN` (o `NODE_AUTH_TOKEN`, adattando la riga) tra le variabili d'ambiente. In una GitHub Action dello stesso owner basta `secrets.GITHUB_TOKEN` con `permissions: packages: read`.
-
-3. Installa:
-
-   ```bash
-   npm install @alpwisestudio/ui
-   ```
+```bash
+npm install @alpwisestudio/ui
+```
 
 ## Uso
 
@@ -163,6 +151,13 @@ Le versioni sono gestite con [Changesets](https://github.com/changesets/changese
 
 1. Per ogni modifica da pubblicare: `npm run changeset`, scegli patch/minor/major e descrivi la modifica. Committa il file in `.changeset/`.
 2. Al push su `main`, la GitHub Action `Release` apre (o aggiorna) la PR **"chore: version packages"** con versione e CHANGELOG aggiornati.
-3. Quando unisci quella PR, la stessa Action builda e pubblica su GitHub Packages.
+3. Quando unisci quella PR, la stessa Action builda e pubblica su npmjs.com.
 
-Serve una volta sola, nelle impostazioni del repository: **Settings → Actions → General → Workflow permissions** su "Read and write" e "Allow GitHub Actions to create and approve pull requests". Il token della Action (`GITHUB_TOKEN`) basta per pubblicare: lo scope `@alpwisestudio` deve coincidere con l'owner del repository su GitHub (l'account `alpwisestudio`).
+Serve una volta sola, nelle impostazioni del repository:
+
+- **Settings → Actions → General → Workflow permissions** su "Read and write" e "Allow GitHub Actions to create and approve pull requests" (per la PR di versione).
+- **Settings → Secrets and variables → Actions**: secret `NPM_TOKEN` con un token npm di tipo Automation (o granular con permesso di pubblicare `@alpwisestudio/ui`) dell'organizzazione `alpwisestudio` su npmjs.com.
+
+## Licenza
+
+Codice, token e componenti sono proprietari di Alpwise Studio (vedi `LICENSE`): il pacchetto è pubblico su npm per comodità di installazione, non per il riuso. I font in `fonts/` (Host Grotesk, DM Mono) sono sotto SIL Open Font License 1.1, con i testi in `fonts/OFL-*.txt`.
