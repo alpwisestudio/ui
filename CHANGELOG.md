@@ -1,5 +1,14 @@
 # @alpwisestudio/ui
 
+## 0.4.0
+
+### Minor Changes
+
+- 2a2689a: Bagliore dell'orizzonte: token `--horizon-glow`, classe `.al-glow` e utility `bg-horizon-glow`, per il pannello di accesso dei prodotti (Alpwise book, staff). `.al-glow` sfuma ai lati, così accanto al form la luce non è tagliata netta.
+- 2a2689a: Sidebar delle app Alpwise, quella di Alpwise book e staff: `AppShell` (sidebar fissa da 1024px, cassetto su mobile con Esc, velo e blocco dello scorrimento), `SidebarGroup`, `SidebarNav` (icona, numero, "Presto", `linkAs` per next/link), `SidebarAccount`, `SidebarTools`, `initials` e `ProductLogo` (lettering "Alpwise" con BOOK o STAFF accanto).
+- 2a2689a: Loghi dei prodotti con le proporzioni del vecchio logo di staff: in `ProductLogo` e nel wordmark completo (`<Logo />`, footer) il nome (BOOK, STAFF, QUOTA, STUDIO) è Host Grotesk 500 alto 30/84 del lettering, spaziatura .12em, distanza 24/84, sulla linea di base del lettering. Il lettering "Alpwise" non cambia.
+- 2a2689a: `ThemeToggle`: scelta Scuro / Chiaro delle app, con la chiave di localStorage dell'app. Intestazioni delle tabelle in `text-muted` nel tema Chiaro (contrasto AA).
+
 ## 0.3.0
 
 ### Minor Changes
