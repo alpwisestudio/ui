@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import {
   Accordion, Button, Card, CaseStudy, Checkbox, Chip, Contact, CTA, Field, Footer, Glass, Head, Hero, Hl, Icon, Input, Kicker, Logo, Modal,
   Navbar, Photo, Services, Sq, Stats, Table, Tag, Testimonial, Toast, ToastRegion, Tree, type IconName, type NavItem,
+  AppShell, ProductLogo, SidebarAccount, SidebarGroup, SidebarNav, SidebarTools, ThemeToggle, type SidebarItem,
 } from '../src/index.js';
 import './preview.css';
 import lago from './photos/lago-alba.jpg';
@@ -24,6 +25,12 @@ const ROWS = [
   { id: '1', progetto: 'Sito vetrina', stato: 'Online', ore: '42' },
   { id: '2', progetto: 'Gestionale ordini', stato: 'In corso', ore: '310' },
   { id: '3', progetto: 'Automazione email', stato: 'Bozza', ore: '18' },
+];
+
+const SIDE: SidebarItem[] = [
+  { href: '#oggi', label: 'Oggi', icon: <Icon name="clock" />, current: true, count: 12, countLabel: '12 prenotazioni oggi' },
+  { href: '#nuova', label: 'Nuova prenotazione', icon: <Icon name="plus" /> },
+  { href: '#calendario', label: 'Calendario', icon: <Icon name="chart" /> },
 ];
 
 type Mode = 'dark' | 'light' | 'both';
@@ -66,6 +73,25 @@ function Gallery({ theme }: { theme: 'dark' | 'light' }) {
           <div style={{ display: 'flex', gap: 8 }}><Button>Invia richiesta</Button><Button variant="glass">Secondaria glass</Button></div>
         </Glass>
       </Photo>
+
+      <Block title="Sidebar (AppShell): sotto i 1024px diventa un cassetto">
+        <div className="pv-shell">
+          <AppShell
+            id={`sidebar-${theme}`}
+            brand={<a href="#" aria-label="Alpwise book, home"><ProductLogo product="Book" /></a>}
+            sidebar={<>
+              <SidebarGroup label="Servizio"><SidebarNav label="Sezioni" items={SIDE} /></SidebarGroup>
+              <SidebarGroup label="In arrivo"><SidebarNav label="In arrivo" items={[{ href: '#clienti', label: 'Clienti', icon: <Icon name="user" />, soon: true }]} /></SidebarGroup>
+            </>}
+            footer={<>
+              <SidebarAccount name="Giulia Rossi" role="Titolare" email="giulia@esempio.test" />
+              <SidebarTools><ThemeToggle storageKey="al-preview-theme" /><Button variant="ghost" size="sm">Esci</Button></SidebarTools>
+            </>}
+          >
+            <div style={{ padding: 32 }}><Kicker>Contenuto</Kicker><p>La pagina sta qui, accanto alla sidebar.</p></div>
+          </AppShell>
+        </div>
+      </Block>
 
       <Block title="Navbar">
         <Navbar items={NAV} cta={{ href: '#', label: 'Parliamone' }} openMenu="Servizi" />

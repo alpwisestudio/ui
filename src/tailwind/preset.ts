@@ -49,7 +49,7 @@ const preset = {
       borderRadius: { none: 'var(--radius-none)', xs: 'var(--radius-xs)', sm: 'var(--radius-sm)' },
       maxWidth: { container: 'var(--container-max)' },
       boxShadow: { overlay: 'var(--shadow-overlay)' },
-      backgroundImage: { horizon: 'var(--horizon)', 'photo-scrim': 'var(--photo-scrim)', 'photo-scrim-soft': 'var(--photo-scrim-soft)' },
+      backgroundImage: { horizon: 'var(--horizon)', 'horizon-glow': 'var(--horizon-glow)', 'photo-scrim': 'var(--photo-scrim)', 'photo-scrim-soft': 'var(--photo-scrim-soft)' },
       backdropBlur: { glass: '18px', 'glass-sm': '10px' },
       zIndex: { nav: 'var(--z-nav)', modal: 'var(--z-modal)', toast: 'var(--z-toast)' },
       transitionDuration: { fast: 'var(--motion-fast)', base: 'var(--motion-base)', slow: 'var(--motion-slow)', epic: 'var(--motion-epic)' },

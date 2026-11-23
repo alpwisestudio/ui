@@ -3,3 +3,8 @@
 @import "../styles/theme.css";
 
 .pv-label{font:500 15px/21px var(--font-sans);color:var(--text-subtle)}
+
+/* Anteprima della sidebar in un riquadro alto 560px invece che a tutta pagina. */
+.pv-shell{border:1px solid var(--line);height:560px;overflow:auto}
+.pv-shell .al-shell,.pv-shell .al-shell-content{min-height:0}
+@media (min-width:1024px){.pv-shell .al-side{height:558px}}

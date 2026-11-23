@@ -97,6 +97,7 @@
 }
 
 @utility bg-horizon { background-image: var(--horizon); }
+@utility bg-horizon-glow { background-image: var(--horizon-glow); }
 @utility bg-photo-scrim { background-image: var(--photo-scrim); }
 @utility bg-photo-scrim-soft { background-image: var(--photo-scrim-soft); }
 @utility backdrop-blur-glass { backdrop-filter: var(--glass-blur); }
