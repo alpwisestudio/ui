@@ -44,7 +44,8 @@ const WORD_VIEWBOX = [222, 631, 880, 236] as const;
 const WORD_GLYPHS = 7;
 
 /**
- * Wordmark completo, `lockup="mark"` per la sola A, `lockup="nav"` per "Alpwise" senza "STUDIO".
+ * Wordmark completo "Alpwise STUDIO" (STUDIO con la regola di ProductLogo: Host Grotesk 500, 30/84, .12em, sulla linea di base),
+ * `lockup="mark"` per la sola A, `lockup="nav"` per "Alpwise" senza "STUDIO".
  * In "nav" le lettere dopo la A hanno la classe al-logo-rest: la navbar compatta le nasconde e restringe il logo alla A.
  */
 export function Logo({ size = 24, color, className, lockup = 'full' }: { size?: number; color?: string; className?: string; lockup?: 'full' | 'mark' | 'nav' }) {

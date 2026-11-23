@@ -8,7 +8,7 @@ Componenti e stili vengono da `alpwise-portfolio` (`src/components/alpwise`, `sr
 
 | Import | Cosa contiene |
 |---|---|
-| `@alpwisestudio/ui` | Componenti React: `Button`, `Tag`, `Chip`, `Hl`, `Icon`, `Logo`, `Kicker`, `Photo`, `Glass`, `Sq`, `Input`, `Field`, `Checkbox`, `Card`, `Stats`, `Tree`, `Table`, `Accordion`, `Navbar`, `Footer`, `Modal`, `Toast`, `ToastRegion`, `Head`, `Hero`, `Services`, `CaseStudy`, `Testimonial`, `CTA`, `Contact`, `cx` |
+| `@alpwisestudio/ui` | Componenti React: `Button`, `Tag`, `Chip`, `Hl`, `Icon`, `Logo`, `Kicker`, `Photo`, `Glass`, `Sq`, `Input`, `Field`, `Checkbox`, `Card`, `Stats`, `Tree`, `Table`, `Accordion`, `Navbar`, `Footer`, `AppShell`, `SidebarGroup`, `SidebarNav`, `SidebarAccount`, `SidebarTools`, `ProductLogo`, `ThemeToggle`, `initials`, `Modal`, `Toast`, `ToastRegion`, `Head`, `Hero`, `Services`, `CaseStudy`, `Testimonial`, `CTA`, `Contact`, `cx` |
 | `@alpwisestudio/ui/styles.css` | Tutto: font, token, componenti, movimento |
 | `@alpwisestudio/ui/tokens.css` | Solo le variabili CSS dei due temi |
 | `@alpwisestudio/ui/fonts.css` | `@font-face` di Host Grotesk (300–600), l'unico font, file inclusi |
@@ -74,7 +74,20 @@ Preset v3 e `theme.css` v4 generano le stesse classi, tutte riferite alle variab
 
 - Colori: `bg-night`, `bg-glass`, `border-glass-line`, `bg-bg`, `bg-surface`, `bg-surface-raised`, `bg-surface-sunken`, `border-line`, `border-line-grid`, `border-line-strong`, `text-ink`, `text-ink-muted`, `text-ink-subtle`, `bg-primary`, `hover:bg-primary-hover`, `bg-primary-soft`, `text-primary-fg`, `bg-inverse`, `text-inverse-fg`, `text-link`, `outline-focus`, `text-success`, `text-warning`, `text-danger`, `bg-mist`, `sky-100…800`
 - Testo: `font-sans`, `font-mono`, `text-display-xl`, `text-display-lg`, `text-h1`…`text-h4`, `text-lead`, `text-body`, `text-body-sm`, `text-label`, `text-kicker`, `text-mono-label`, `text-mono-sm`, `text-mono-data` (i `mono-*` sono in Host Grotesk: aggiungi `tabular-nums` ai numeri)
-- Altro: `rounded-none`, `rounded-xs`, `rounded-sm`, `max-w-container`, `shadow-overlay`, `bg-horizon`, `bg-photo-scrim`, `backdrop-blur-glass`, `z-nav`, `z-modal`, `z-toast`, `duration-fast|base|slow|epic`, `ease-out`, `ease-in-out`
+- Altro: `rounded-none`, `rounded-xs`, `rounded-sm`, `max-w-container`, `shadow-overlay`, `bg-horizon`, `bg-horizon-glow`, `bg-photo-scrim`, `backdrop-blur-glass`, `z-nav`, `z-modal`, `z-toast`, `duration-fast|base|slow|epic`, `ease-out`, `ease-in-out`
+
+## Bagliore
+
+Il pannello di accesso dei prodotti (metà destra della login di Alpwise book e staff): fondo Notte, griglia a 12 colonne e la luce dell'orizzonte che sale dal fondo.
+
+```html
+<aside class="relative overflow-hidden bg-night">
+  <div class="al-glow"></div>
+  …
+</aside>
+```
+
+Solo lì: hero, CTA e case study usano l'orizzonte lineare (`al-horizon`). Il centro del bagliore schiarisce fino a `sky-200`, quindi niente testo nella metà bassa. `al-glow` sfuma già ai lati; anche la griglia sfuma verso il form e non ha una linea sul bordo, così in tema scuro il pannello continua la metà del form senza stacco.
 
 ## Foto e vetro
 
@@ -154,7 +167,7 @@ Per il prodotto di un cliente si cambia la scala `sky-*` (e quindi `primary`) ve
 }
 ```
 
-Orizzonte (`--horizon`) e wordmark restano di Alpwise Studio. Le utility Tailwind leggono le stesse variabili, quindi seguono gli override senza altre modifiche.
+Orizzonte (`--horizon`, `--horizon-glow`) e wordmark restano di Alpwise Studio. Le utility Tailwind leggono le stesse variabili, quindi seguono gli override senza altre modifiche.
 
 ## Sviluppo
 

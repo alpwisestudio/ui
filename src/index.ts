@@ -4,3 +4,5 @@ export * from './data.js';
 export * from './layout.js';
 export * from './feedback.js';
 export * from './sections.js';
+export * from './sidebar.js';
+export * from './theme.js';

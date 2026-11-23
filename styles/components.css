@@ -20,6 +20,10 @@ body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.5 var(--fon
 /* ── Horizon: night sky over the Prealps, black to brand blue. Identical in both themes; white text anywhere on it ── */
 .al-horizon{background:var(--horizon);color:var(--white)}
 
+/* ── Glow: the horizon's light rising from the bottom edge. Only for product sign-in panels, on night; no text over the lower half ── */
+/* Sfuma ai lati (il pannello parte al 16.7% del box): accanto al form la luce non è tagliata netta. */
+.al-glow{position:absolute;left:-25%;right:-25%;bottom:-15%;height:95%;pointer-events:none;background:var(--horizon-glow);-webkit-mask-image:linear-gradient(90deg,transparent 16.7%,#000 34%,#000 66%,transparent 83.3%);mask-image:linear-gradient(90deg,transparent 16.7%,#000 34%,#000 66%,transparent 83.3%)}
+
 /* ── Dashed rule ── */
 .al-rule{border:0;border-top:1px dashed var(--line-grid);margin:0}
 
@@ -121,6 +125,8 @@ a.al-card:hover .al-sq{background:var(--primary);color:var(--on-primary)}
 .al-table-wrap{border:1px solid var(--line);overflow:auto;background:var(--surface)}
 .al-table{width:100%;border-collapse:collapse;font:400 14px/22px var(--font-sans);color:var(--text)}
 .al-table th{text-align:left;font:500 13px/18px var(--font-sans);color:var(--text-subtle);padding:12px 16px;border-bottom:1px solid var(--line);background:var(--surface-sunken);white-space:nowrap}
+/* In Chiaro text-subtle on surface-sunken stays under 4.5:1: headers use text-muted */
+[data-theme="light"] .al-table th{color:var(--text-muted)}
 .al-table td{padding:12px 16px;border-bottom:1px solid var(--line)}
 .al-table tr:last-child td{border-bottom:0}
 .al-table tbody tr:hover td{background:var(--surface-sunken)}
@@ -329,5 +335,61 @@ a.al-service:focus-visible::after{transform:none}
 .al-logo{display:inline-block;color:var(--text);flex:none}
 .al-nav .al-logo,.al-footer .al-logo{color:inherit}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+
+/* ── Logo di prodotto: lettering "Alpwise" + nome del prodotto (BOOK, STAFF). Misure dall'altezza del logo: a 22px, 12px di testo a 10px di distanza ── */
+/* ── Theme toggle: "Scuro" / "Chiaro" side by side, the active one in brand blue (ThemeToggle) ── */
+.al-theme{display:inline-flex;border:1px solid var(--line);border-radius:var(--radius-xs)}
+.al-theme button{font:500 13px/18px var(--font-sans);color:var(--text-muted);background:transparent;border:0;padding:7px 10px;cursor:pointer}
+.al-theme button:hover{color:var(--text)}
+.al-theme button[aria-pressed="true"]{background:var(--primary);color:var(--on-primary)}
+.al-theme button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+/* Nome del prodotto accanto al lettering, con le proporzioni del logo di staff: 30/84 dell'altezza del lettering,
+   spaziatura .12em, distanza 24/84, sulla linea di base del lettering (52.18/236 sopra il fondo del logo; .15em è la
+   distanza tra linea di base e fondo della riga di Host Grotesk con line-height 1). */
+.al-product-logo{--al-logo-h:22px;display:inline-flex;align-items:flex-end;gap:calc(var(--al-logo-h)*24/84);color:currentColor;line-height:1;white-space:nowrap}
+.al-product-logo .al-logo{color:inherit}
+.al-product-logo-name{font:500 max(10px,calc(var(--al-logo-h)*30/84))/1 var(--font-sans);letter-spacing:.12em;margin-bottom:calc(var(--al-logo-h)*52.18/236 - .15em)}
+
+/* ── App con sidebar (Alpwise book, staff): da 1024px sidebar fissa a sinistra, sotto cassetto aperto dalla barra in alto ── */
+.al-shell{min-height:100dvh}
+.al-shell-top{position:sticky;top:0;z-index:var(--z-nav);display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 16px;border-bottom:1px solid var(--line);background:var(--bg)}
+.al-shell-top a,.al-side-brand a{display:inline-flex;color:var(--text);text-decoration:none}
+.al-shell-menu{display:inline-grid;place-items:center;width:44px;height:44px;margin-right:-10px;border:0;border-radius:var(--radius-xs);background:transparent;color:var(--text);cursor:pointer}
+.al-shell-menu:hover{background:var(--surface-raised)}
+.al-shell-menu:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+.al-side{position:fixed;inset:0 auto 0 0;z-index:var(--z-modal);width:min(280px,85vw);height:100dvh;display:flex;flex-direction:column;border-right:1px solid var(--line);background:var(--surface);transform:translateX(-100%);visibility:hidden;transition:transform calc(var(--motion-fast)*2) var(--ease-in-out),visibility 0s linear calc(var(--motion-fast)*2)}
+.al-side.is-open{transform:none;visibility:visible;box-shadow:var(--shadow-overlay);transition:transform var(--motion-base) var(--ease-out),visibility 0s}
+.al-shell-scrim{position:fixed;inset:0;z-index:calc(var(--z-modal) - 1);background:var(--scrim);opacity:0;pointer-events:none;transition:opacity calc(var(--motion-fast)*2) linear}
+.al-shell-scrim.is-open{opacity:1;pointer-events:auto}
+.al-side-brand{display:flex;align-items:center;flex:none;height:64px;padding:0 20px;border-bottom:1px solid var(--line)}
+.al-side-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:12px 0}
+.al-side-group+.al-side-group{padding-top:14px}
+.al-side-label{display:flex;align-items:center;gap:10px;margin:0;padding:8px 20px;font:500 12px/16px var(--font-sans);letter-spacing:.04em;color:var(--text-subtle)}
+.al-side-label::after{content:'';flex:1;height:1px;background:var(--line)}
+.al-side-nav ul{list-style:none;margin:0;padding:0}
+.al-side-item{display:flex;align-items:center;gap:12px;min-height:44px;margin:0 8px;padding:0 12px;border-radius:var(--radius-xs);color:var(--text-muted);text-decoration:none;font:400 15px/20px var(--font-sans);transition:color var(--motion-fast) linear,background-color var(--motion-fast) linear}
+a.al-side-item:hover{color:var(--text);background:var(--surface-raised)}
+.al-side-item[aria-current='page']{color:var(--text);background:var(--primary-soft);box-shadow:inset 2px 0 0 var(--primary)}
+.al-side-item:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+.al-side-item.is-soon{color:var(--text-subtle)}
+.al-side-icon{display:inline-flex;color:var(--text-subtle)}
+.al-side-icon svg{width:18px;height:18px}
+.al-side-item[aria-current='page'] .al-side-icon{color:var(--link)}
+.al-side-text{flex:1}
+.al-side-count{min-width:22px;padding:1px 6px;border-radius:var(--radius-xs);background:var(--surface-raised);color:var(--text-muted);text-align:center;font:500 12px/18px var(--font-sans);font-variant-numeric:tabular-nums}
+.al-side-item[aria-current='page'] .al-side-count{background:var(--primary);color:var(--on-primary)}
+.al-side-soon{padding:1px 6px;border:1px solid var(--line);border-radius:var(--radius-xs);font:500 11px/16px var(--font-sans);color:var(--text-subtle)}
+.al-side-foot{flex:none;display:grid;gap:12px;padding:16px 16px max(16px,env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+.al-side-tools{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.al-side-tools form{margin:0}
+.al-account{display:flex;align-items:center;gap:12px;min-width:0}
+.al-account-sq{flex:none;display:inline-grid;place-items:center;width:32px;height:32px;border:1px solid var(--line);background:var(--surface-raised);color:var(--text);font:400 12px/16px var(--font-sans);font-variant-numeric:tabular-nums}
+.al-account-text{min-width:0;display:grid}
+.al-account-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);font:400 14px/20px var(--font-sans)}
+.al-account-email{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-muted);font:400 12px/16px var(--font-sans)}
+.al-shell-content{min-width:0;display:flex;flex-direction:column;min-height:calc(100dvh - 56px)}
+@media (min-width:1024px){.al-shell{display:flex}.al-shell-top,.al-shell-scrim{display:none}.al-side,.al-side.is-open{position:sticky;top:0;width:248px;flex:none;transform:none;visibility:visible;box-shadow:none;transition:none}.al-shell-content{flex:1;min-height:100dvh}}
+@media (prefers-reduced-motion:reduce){.al-side,.al-side.is-open,.al-shell-scrim{transition:none}}
 
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
