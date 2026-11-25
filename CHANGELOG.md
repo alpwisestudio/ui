@@ -1,5 +1,15 @@
 # @alpwisestudio/ui
 
+## 0.5.0
+
+### Minor Changes
+
+- 0b58d3f: Add `SidebarAccountMenu`, `SidebarAccountItem`, `SidebarAccountSeparator`, and `ThemeToggle` `variant="subtle"` for a compact popover account menu at the bottom of the app sidebar.
+
+### Patch Changes
+
+- c25f0fe: SidebarAccountMenu: il menu segue il bottone nel DOM (ordine di Tab corretto), `role="group"` al posto di `dialog`, angoli vivi, nome a 13px, hover e stato aperto visibili anche in Chiaro.
+
 ## 0.4.0
 
 ### Minor Changes
