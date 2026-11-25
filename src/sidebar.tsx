@@ -233,11 +233,29 @@ export function SidebarAccountMenu({
 
   return (
     <div ref={rootRef} className={cx('al-account-menu', className)}>
+      <button
+        ref={triggerRef}
+        type="button"
+        className="al-account-trigger"
+        aria-expanded={open}
+        aria-controls={open ? menuId : undefined}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span className="al-account-sq" aria-hidden="true">{initials(name, email)}</span>
+        <span className="al-account-text">
+          <span className="al-account-name">{title || email}</span>
+          {title && <span className="al-account-email">{email}</span>}
+        </span>
+        <span className="al-account-chevron" aria-hidden="true">
+          <Icon name="chevrons" size={16} />
+        </span>
+      </button>
+      {/* Dopo il bottone nel DOM (sopra solo a schermo): con il menu aperto Tab entra nelle voci in ordine. */}
       {open && (
         <div
           id={menuId}
           className="al-account-pop"
-          role="dialog"
+          role="group"
           aria-label="Menu account"
           onClick={(e) => {
             if ((e.target as HTMLElement).closest('a[href]')) setOpen(false);
@@ -255,23 +273,6 @@ export function SidebarAccountMenu({
           {children}
         </div>
       )}
-      <button
-        ref={triggerRef}
-        type="button"
-        className="al-account-trigger"
-        aria-expanded={open}
-        aria-controls={menuId}
-        onClick={() => setOpen((v) => !v)}
-      >
-        <span className="al-account-sq" aria-hidden="true">{initials(name, email)}</span>
-        <span className="al-account-text">
-          <span className="al-account-name">{title || email}</span>
-          {title && <span className="al-account-email">{email}</span>}
-        </span>
-        <span className="al-account-chevron" aria-hidden="true">
-          <Icon name="chevrons" size={16} />
-        </span>
-      </button>
     </div>
   );
 }
