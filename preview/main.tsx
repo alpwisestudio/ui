@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import {
   Accordion, Button, Card, CaseStudy, Checkbox, Chip, Contact, CTA, Field, Footer, Glass, Head, Hero, Hl, Icon, Input, Kicker, Logo, Modal,
   Navbar, Photo, Services, Sq, Stats, Table, Tag, Testimonial, Toast, ToastRegion, Tree, type IconName, type NavItem,
-  AppShell, ProductLogo, SidebarAccount, SidebarGroup, SidebarNav, SidebarTools, ThemeToggle, type SidebarItem,
+  AppShell, ProductLogo, SidebarAccountItem, SidebarAccountMenu, SidebarGroup, SidebarNav, type SidebarItem,
 } from '../src/index.js';
 import './preview.css';
 import lago from './photos/lago-alba.jpg';
@@ -20,7 +20,7 @@ const NAV: NavItem[] = [
   { label: 'Lavori', href: '#' },
   { label: 'Contatti', href: '#' },
 ];
-const ICONS: IconName[] = ['arrow-right', 'arrow-up-right', 'plus', 'minus', 'check', 'x', 'menu', 'globe', 'code', 'spark', 'layers', 'mail', 'clock', 'bolt', 'shield', 'chart', 'pin', 'user'];
+const ICONS: IconName[] = ['arrow-right', 'arrow-up-right', 'plus', 'minus', 'check', 'x', 'menu', 'globe', 'code', 'spark', 'layers', 'mail', 'clock', 'bolt', 'shield', 'chart', 'pin', 'user', 'key', 'logout', 'chevrons'];
 const ROWS = [
   { id: '1', progetto: 'Sito vetrina', stato: 'Online', ore: '42' },
   { id: '2', progetto: 'Gestionale ordini', stato: 'In corso', ore: '310' },
@@ -83,10 +83,12 @@ function Gallery({ theme }: { theme: 'dark' | 'light' }) {
               <SidebarGroup label="Servizio"><SidebarNav label="Sezioni" items={SIDE} /></SidebarGroup>
               <SidebarGroup label="In arrivo"><SidebarNav label="In arrivo" items={[{ href: '#clienti', label: 'Clienti', icon: <Icon name="user" />, soon: true }]} /></SidebarGroup>
             </>}
-            footer={<>
-              <SidebarAccount name="Giulia Rossi" role="Titolare" email="giulia@esempio.test" />
-              <SidebarTools><ThemeToggle storageKey="al-preview-theme" /><Button variant="ghost" size="sm">Esci</Button></SidebarTools>
-            </>}
+            footer={
+              <SidebarAccountMenu name="Giulia Rossi" role="Titolare" email="giulia@esempio.test" themeStorageKey="al-preview-theme">
+                <SidebarAccountItem href="#password" icon={<Icon name="key" size={15} />}>Cambia password</SidebarAccountItem>
+                <SidebarAccountItem tone="danger" icon={<Icon name="logout" size={15} />} onClick={() => {}}>Esci</SidebarAccountItem>
+              </SidebarAccountMenu>
+            }
           >
             <div style={{ padding: 32 }}><Kicker>Contenuto</Kicker><p>La pagina sta qui, accanto alla sidebar.</p></div>
           </AppShell>

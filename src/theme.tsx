@@ -21,11 +21,19 @@ function subscribe(onChange: () => void) {
 }
 
 /**
- * Scelta del tema delle app (Alpwise book, staff): "Scuro" e "Chiaro" affiancati, quello attivo in azzurro.
- * Mette `data-theme` su <html> e salva la scelta in localStorage sotto `storageKey`, la stessa chiave che legge lo
- * script inline dell'app prima del primo paint. Va nella login (in alto a destra) e in fondo alla sidebar.
+ * Scelta del tema delle app (Alpwise book, staff): "Scuro" e "Chiaro" affiancati.
+ * `variant="default"` usa l'azzurro di marca sul bottone attivo (login); `variant="subtle"` usa un pill neutro
+ * rialzato (menu account nella sidebar). Mette `data-theme` su <html> e salva in localStorage sotto `storageKey`.
  */
-export function ThemeToggle({ storageKey, className }: { storageKey: string; className?: string }) {
+export function ThemeToggle({
+  storageKey,
+  variant = 'default',
+  className,
+}: {
+  storageKey: string;
+  variant?: 'default' | 'subtle';
+  className?: string;
+}) {
   // Sul server nessun bottone è premuto: il tema vero si conosce solo nel browser.
   const theme = useSyncExternalStore(subscribe, readTheme, () => null);
   const choose = (next: Theme) => {
@@ -37,7 +45,11 @@ export function ThemeToggle({ storageKey, className }: { storageKey: string; cla
     }
   };
   return (
-    <div className={cx('al-theme', className)} role="group" aria-label="Tema">
+    <div
+      className={cx('al-theme', variant === 'subtle' && 'al-theme-subtle', className)}
+      role="group"
+      aria-label="Tema"
+    >
       {OPTIONS.map((o) => (
         <button key={o.value} type="button" aria-pressed={theme === o.value} onClick={() => choose(o.value)}>
           {o.label}
