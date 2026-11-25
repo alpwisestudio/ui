@@ -8,7 +8,7 @@ Componenti e stili vengono da `alpwise-portfolio` (`src/components/alpwise`, `sr
 
 | Import | Cosa contiene |
 |---|---|
-| `@alpwisestudio/ui` | Componenti React: `Button`, `Tag`, `Chip`, `Hl`, `Icon`, `Logo`, `Kicker`, `Photo`, `Glass`, `Sq`, `Input`, `Field`, `Checkbox`, `Card`, `Stats`, `Tree`, `Table`, `Accordion`, `Navbar`, `Footer`, `AppShell`, `SidebarGroup`, `SidebarNav`, `SidebarAccount`, `SidebarTools`, `ProductLogo`, `ThemeToggle`, `initials`, `Modal`, `Toast`, `ToastRegion`, `Head`, `Hero`, `Services`, `CaseStudy`, `Testimonial`, `CTA`, `Contact`, `cx` |
+| `@alpwisestudio/ui` | Componenti React: `Button`, `Tag`, `Chip`, `Hl`, `Icon`, `Logo`, `Kicker`, `Photo`, `Glass`, `Sq`, `Input`, `Field`, `Checkbox`, `Card`, `Stats`, `Tree`, `Table`, `Accordion`, `Navbar`, `Footer`, `AppShell`, `SidebarGroup`, `SidebarNav`, `SidebarAccount`, `SidebarAccountMenu`, `SidebarAccountItem`, `SidebarAccountSeparator`, `SidebarTools`, `ProductLogo`, `ThemeToggle`, `initials`, `Modal`, `Toast`, `ToastRegion`, `Head`, `Hero`, `Services`, `CaseStudy`, `Testimonial`, `CTA`, `Contact`, `cx` |
 | `@alpwisestudio/ui/styles.css` | Tutto: font, token, componenti, movimento |
 | `@alpwisestudio/ui/tokens.css` | Solo le variabili CSS dei due temi |
 | `@alpwisestudio/ui/fonts.css` | `@font-face` di Host Grotesk (300–600), l'unico font, file inclusi |

@@ -2,13 +2,17 @@
 
 import {
   useEffect,
+  useId,
+  useRef,
   useState,
   type AnchorHTMLAttributes,
+  type ButtonHTMLAttributes,
   type ComponentType,
   type CSSProperties,
   type ReactNode,
 } from 'react';
 import { cx, Icon, Logo } from './primitives.js';
+import { ThemeToggle } from './theme.js';
 
 /**
  * Logo di un prodotto Alpwise: il lettering originale "Alpwise" (mai ridisegnato con un font) e il nome del prodotto
@@ -177,6 +181,132 @@ export function SidebarAccount({ name, email, role }: { name?: string | null; em
 /** Strumenti in fondo alla sidebar, su una riga: tema a sinistra, Esci a destra. */
 export function SidebarTools({ children }: { children: ReactNode }) {
   return <div className="al-side-tools">{children}</div>;
+}
+
+/**
+ * Scheda account compatta in fondo alla sidebar con menu popover verso l'alto:
+ * a riposo mostra solo iniziali, nome/ruolo ed email; al click apre tema, azioni e uscita.
+ */
+export function SidebarAccountMenu({
+  name,
+  email,
+  role,
+  themeStorageKey,
+  themeLabel = 'Tema',
+  children,
+  className,
+}: {
+  name?: string | null;
+  email: string;
+  role?: string;
+  /** Chiave localStorage per mostrare lo switch Tema compatto in cima al menu. */
+  themeStorageKey?: string;
+  themeLabel?: string;
+  /** Voci del menu (SidebarAccountItem, form di uscita, SidebarAccountSeparator). */
+  children?: ReactNode;
+  className?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuId = useId();
+  const title = [name, role].filter(Boolean).join(' · ');
+
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        triggerRef.current?.focus();
+      }
+    };
+    document.addEventListener('pointerdown', onPointerDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [open]);
+
+  return (
+    <div ref={rootRef} className={cx('al-account-menu', className)}>
+      {open && (
+        <div
+          id={menuId}
+          className="al-account-pop"
+          role="dialog"
+          aria-label="Menu account"
+          onClick={(e) => {
+            if ((e.target as HTMLElement).closest('a[href]')) setOpen(false);
+          }}
+        >
+          {themeStorageKey && (
+            <>
+              <div className="al-account-pop-theme">
+                <span>{themeLabel}</span>
+                <ThemeToggle storageKey={themeStorageKey} variant="subtle" />
+              </div>
+              {children && <SidebarAccountSeparator />}
+            </>
+          )}
+          {children}
+        </div>
+      )}
+      <button
+        ref={triggerRef}
+        type="button"
+        className="al-account-trigger"
+        aria-expanded={open}
+        aria-controls={menuId}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span className="al-account-sq" aria-hidden="true">{initials(name, email)}</span>
+        <span className="al-account-text">
+          <span className="al-account-name">{title || email}</span>
+          {title && <span className="al-account-email">{email}</span>}
+        </span>
+        <span className="al-account-chevron" aria-hidden="true">
+          <Icon name="chevrons" size={16} />
+        </span>
+      </button>
+    </div>
+  );
+}
+
+/** Voce del menu account (link o bottone, incluso type="submit" dentro un <form>). */
+export function SidebarAccountItem({
+  icon,
+  tone = 'default',
+  href,
+  linkAs: A = 'a' as unknown as SidebarLinkComponent,
+  className,
+  children,
+  ...rest
+}: {
+  icon?: ReactNode;
+  tone?: 'default' | 'danger';
+  href?: string;
+  linkAs?: SidebarLinkComponent;
+  className?: string;
+  children: ReactNode;
+} & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'children'>) {
+  const cls = cx('al-account-item', tone === 'danger' && 'al-account-item-danger', className);
+  const inner = (
+    <>
+      {icon && <span className="al-account-item-icon" aria-hidden="true">{icon}</span>}
+      <span className="al-account-item-label">{children}</span>
+    </>
+  );
+  if (href) return <A href={href} className={cls}>{inner}</A>;
+  return <button type="button" {...rest} className={cls}>{inner}</button>;
+}
+
+/** Divisore sottile tra le sezioni del menu account. */
+export function SidebarAccountSeparator() {
+  return <div className="al-account-sep" role="separator" />;
 }
 
 const MOBILE = '(max-width: 1023.98px)';

@@ -343,6 +343,9 @@ a.al-service:focus-visible::after{transform:none}
 .al-theme button:hover{color:var(--text)}
 .al-theme button[aria-pressed="true"]{background:var(--primary);color:var(--on-primary)}
 .al-theme button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.al-theme.al-theme-subtle{padding:2px;background:var(--surface);border-radius:var(--radius-xs)}
+.al-theme.al-theme-subtle button{font:500 12px/16px var(--font-sans);padding:3px 8px;border-radius:var(--radius-xs);transition:color var(--motion-fast) linear,background-color var(--motion-fast) linear}
+.al-theme.al-theme-subtle button[aria-pressed="true"]{background:var(--surface-raised);color:var(--text);box-shadow:0 0 0 1px var(--line-strong)}
 
 /* Nome del prodotto accanto al lettering, con le proporzioni del logo di staff: 30/84 dell'altezza del lettering,
    spaziatura .12em, distanza 24/84, sulla linea di base del lettering (52.18/236 sopra il fondo del logo; .15em è la
@@ -381,13 +384,33 @@ a.al-side-item:hover{color:var(--text);background:var(--surface-raised)}
 .al-side-item[aria-current='page'] .al-side-count{background:var(--primary);color:var(--on-primary)}
 .al-side-soon{padding:1px 6px;border:1px solid var(--line);border-radius:var(--radius-xs);font:500 11px/16px var(--font-sans);color:var(--text-subtle)}
 .al-side-foot{flex:none;display:grid;gap:12px;padding:16px 16px max(16px,env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+.al-side-foot:has(>.al-account-menu){padding:8px 8px max(8px,env(safe-area-inset-bottom))}
 .al-side-tools{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .al-side-tools form{margin:0}
 .al-account{display:flex;align-items:center;gap:12px;min-width:0}
-.al-account-sq{flex:none;display:inline-grid;place-items:center;width:32px;height:32px;border:1px solid var(--line);background:var(--surface-raised);color:var(--text);font:400 12px/16px var(--font-sans);font-variant-numeric:tabular-nums}
-.al-account-text{min-width:0;display:grid}
-.al-account-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);font:400 14px/20px var(--font-sans)}
-.al-account-email{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-muted);font:400 12px/16px var(--font-sans)}
+.al-account-sq{flex:none;display:inline-grid;place-items:center;width:32px;height:32px;border:1px solid var(--line-strong);border-radius:var(--radius-xs);background:var(--surface-raised);color:var(--text);font:500 12px/16px var(--font-sans);font-variant-numeric:tabular-nums}
+.al-account-text{min-width:0;flex:1;display:grid}
+.al-account-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);font:500 13.5px/18px var(--font-sans)}
+.al-account-email{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-subtle);font:400 12px/16px var(--font-sans)}
+.al-account-menu{position:relative}
+.al-account-menu form{margin:0}
+.al-account-trigger{width:100%;display:flex;align-items:center;gap:10px;padding:8px;border:0;border-radius:var(--radius-xs);background:transparent;color:var(--text);text-align:left;cursor:pointer;transition:background-color var(--motion-fast) linear}
+.al-account-trigger:hover,.al-account-trigger[aria-expanded="true"]{background:var(--surface-raised)}
+.al-account-trigger:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+.al-account-chevron{flex:none;display:inline-flex;color:var(--text-subtle)}
+.al-account-pop{position:absolute;left:0;right:0;bottom:calc(100% + 14px);z-index:var(--z-modal);padding:6px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);background:var(--surface-raised);box-shadow:var(--shadow-overlay);display:grid;gap:2px;animation:al-pop-in var(--motion-fast) var(--ease-out)}
+.al-account-pop-theme{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 8px;font:400 12px/16px var(--font-sans);color:var(--text-muted)}
+.al-account-sep{height:1px;background:var(--line);margin:3px 0}
+.al-account-item{width:100%;display:flex;align-items:center;gap:9px;padding:7px 8px;border:0;border-radius:var(--radius-xs);background:transparent;color:var(--text-muted);text-decoration:none;text-align:left;font:400 13px/18px var(--font-sans);cursor:pointer;transition:color var(--motion-fast) linear,background-color var(--motion-fast) linear}
+.al-account-item:hover{background:var(--surface);color:var(--text)}
+.al-account-item:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+.al-account-item-icon{flex:none;display:inline-flex}
+.al-account-item-icon svg{width:15px;height:15px}
+.al-account-item-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.al-account-item-danger{color:var(--danger)}
+.al-account-item-danger:hover{color:var(--danger);background:color-mix(in srgb,var(--danger) 10%,transparent)}
+@keyframes al-pop-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.al-account-pop{animation:none}}
 .al-shell-content{min-width:0;display:flex;flex-direction:column;min-height:calc(100dvh - 56px)}
 @media (min-width:1024px){.al-shell{display:flex}.al-shell-top,.al-shell-scrim{display:none}.al-side,.al-side.is-open{position:sticky;top:0;width:248px;flex:none;transform:none;visibility:visible;box-shadow:none;transition:none}.al-shell-content{flex:1;min-height:100dvh}}
 @media (prefers-reduced-motion:reduce){.al-side,.al-side.is-open,.al-shell-scrim{transition:none}}
